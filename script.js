@@ -3,17 +3,68 @@ const addEmployeesBtn = document.querySelector('#add-employees-btn');
 
 // Collect employee data
 const collectEmployees = function() {
-  // TODO: Get user input to create and return an array of employee objects
+  let addEmpolyees = true;
+  let employees = [];
+
+  //Get user input to create and return an array of employee objects
+
+  while (addEmpolyees) {
+    let firstName = prompt('Enter First Name');
+    let lastName = prompt('Enter Last Name');
+    let salary = prompt('Enter Salary');
+    
+    //converts string to float value and checks if number
+    salary = parseFloat(salary);
+    if (Number.isNaN(salary)) {
+      salary = 0.00
+    }
+    
+    //pushes input variables to array
+    employees.push({
+      firstName,
+      lastName,
+      salary,
+      });
+
+    addEmpolyees = confirm("Add another employee?");
+  }
+  //returns array to calling function 
+  return employees;
 }
+
+
 
 // Display the average salary
 const displayAverageSalary = function(employeesArray) {
-  // TODO: Calculate and display the average salary
+  let average = 0;
+
+  // loop to add employee salaries
+  for (let i = 0; i < employeesArray.length; i++) {
+    average += employeesArray[i].salary;
+  }
+
+  //divides sum by the number of employees
+  average /= employeesArray.length;
+
+  //convert value to currency format
+  average = average.toLocaleString("en-US",{
+    style:"currency",
+    currency:"USD"
+  });
+
+//displays the value in the console
+  console.log(`The average employee salary between our ${employeesArray.length} employee(s) is ${average}.`)
 }
 
 // Select a random employee
 const getRandomEmployee = function(employeesArray) {
-  // TODO: Select and display a random employee
+  
+  //Select and display a random employee
+  let max = employeesArray.length;
+  let randomInteger = Math.floor(Math.random() * max)
+  let randomEmployee = employeesArray[randomInteger]
+  console.log(`Congratulations to ${randomEmployee.firstName} ${randomEmployee.lastName}, our random drawing winner!`);
+
 }
 
 /*
